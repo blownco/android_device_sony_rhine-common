@@ -64,7 +64,9 @@ PRODUCT_COPY_FILES += \
 
 # QCOM Display
 PRODUCT_PACKAGES += \
+    libgenlock \
     hwcomposer.msm8974 \
+    memtrack.msm8974 \
     gralloc.msm8974 \
     copybit.msm8974
 
