@@ -108,6 +108,10 @@ PRODUCT_PACKAGES += \
     libaudio-resampler \
     tinymix
 	
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.msm8974
+	
 # BT
 PRODUCT_PACKAGES += \
     hci_qcomm_init
