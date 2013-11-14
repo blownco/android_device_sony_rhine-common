@@ -23,7 +23,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <telephony/ril_cdma_sms.h>
-#include <telephony/ril_msim.h>
 #ifndef FEATURE_UNIT_TEST
 #include <sys/time.h>
 #endif /* !FEATURE_UNIT_TEST */
@@ -32,7 +31,7 @@
 extern "C" {
 #endif
 
-#define RIL_VERSION 8     /* Current version */
+#define RIL_VERSION 9     /* Current version */
 #ifdef LEGACY_RIL
 #define RIL_VERSION_MIN 2 /* Minimum RIL_VERSION supported */
 #else
@@ -3683,6 +3682,23 @@ typedef struct {
 #endif
 
 /**
+* RIL_REQUEST_SET_INITIAL_ATTACH_APN
+*
+* Set an apn to initial attach network
+* "response" is NULL
+*
+* Valid errors:
+* SUCCESS
+* RADIO_NOT_AVAILABLE (radio resetting)
+* GENERIC_FAILURE
+* SUBSCRIPTION_NOT_AVAILABLE
+*/
+#ifndef RIL_NO_CELL_INFO_LIST
+#define RIL_REQUEST_SET_INITIAL_ATTACH_APN 111
+#else
+#define RIL_REQUEST_SET_INITIAL_ATTACH_APN 109
+#endif
+/**
  * RIL_REQUEST_IMS_REGISTRATION_STATE
  *
  * Request current IMS registration state
@@ -3705,9 +3721,9 @@ typedef struct {
  *  GENERIC_FAILURE
  */
 #ifndef RIL_NO_CELL_INFO_LIST
-#define RIL_REQUEST_IMS_REGISTRATION_STATE 111
+#define RIL_REQUEST_IMS_REGISTRATION_STATE 112
 #else
-#define RIL_REQUEST_IMS_REGISTRATION_STATE 109
+#define RIL_REQUEST_IMS_REGISTRATION_STATE 110
 #endif
 
 /**
@@ -3732,9 +3748,9 @@ typedef struct {
  *
  */
 #ifndef RIL_NO_CELL_INFO_LIST
-#define RIL_REQUEST_IMS_SEND_SMS 112
+#define RIL_REQUEST_IMS_SEND_SMS 113
 #else
-#define RIL_REQUEST_IMS_SEND_SMS 110
+#define RIL_REQUEST_IMS_SEND_SMS 111
 #endif
 
 /**
@@ -3759,9 +3775,9 @@ typedef struct {
  *
  */
 #ifndef RIL_NO_CELL_INFO_LIST
-#define RIL_REQUEST_GET_DATA_CALL_PROFILE 113
+#define RIL_REQUEST_GET_DATA_CALL_PROFILE 114
 #else
-#define RIL_REQUEST_GET_DATA_CALL_PROFILE 111
+#define RIL_REQUEST_GET_DATA_CALL_PROFILE 112
 #endif
  
 /**
@@ -3780,9 +3796,9 @@ typedef struct {
  *
  */
 #ifndef RIL_NO_CELL_INFO_LIST
-#define RIL_REQUEST_SET_UICC_SUBSCRIPTION  114
+#define RIL_REQUEST_SET_UICC_SUBSCRIPTION  115
 #else
-#define RIL_REQUEST_SET_UICC_SUBSCRIPTION  118
+#define RIL_REQUEST_SET_UICC_SUBSCRIPTION  119
 #endif
 
 /**
@@ -3801,9 +3817,9 @@ typedef struct {
  *
  */
 #ifndef RIL_NO_CELL_INFO_LIST
-#define RIL_REQUEST_SET_DATA_SUBSCRIPTION  115
+#define RIL_REQUEST_SET_DATA_SUBSCRIPTION  116
 #else
-#define RIL_REQUEST_SET_DATA_SUBSCRIPTION  119
+#define RIL_REQUEST_SET_DATA_SUBSCRIPTION  120
 #endif
 
 /**
@@ -3823,9 +3839,9 @@ typedef struct {
  *
  */
 #ifndef RIL_NO_CELL_INFO_LIST
-#define RIL_REQUEST_GET_UICC_SUBSCRIPTION 116
+#define RIL_REQUEST_GET_UICC_SUBSCRIPTION 117
 #else
-#define RIL_REQUEST_GET_UICC_SUBSCRIPTION 120
+#define RIL_REQUEST_GET_UICC_SUBSCRIPTION 121
 #endif
 
 /**
@@ -3847,9 +3863,9 @@ typedef struct {
  *
  */
 #ifndef RIL_NO_CELL_INFO_LIST
-#define RIL_REQUEST_GET_DATA_SUBSCRIPTION 117
+#define RIL_REQUEST_GET_DATA_SUBSCRIPTION 118
 #else
-#define RIL_REQUEST_GET_DATA_SUBSCRIPTION 121
+#define RIL_REQUEST_GET_DATA_SUBSCRIPTION 122
 #endif
 /***********************************************************************/
 
@@ -4480,6 +4496,15 @@ typedef struct {
     RIL_Cancel onCancel;
     RIL_GetVersion getVersion;
 } RIL_RadioFunctions;
+
+typedef struct {
+    char *apn;
+    char *protocol;
+    int authtype;
+    char *username;
+    char *password;
++} RIL_InitialAttachApn;
+
 
 #ifdef RIL_SHLIB
 struct RIL_Env {
