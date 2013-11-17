@@ -31,10 +31,7 @@
     <!-- Determine whether we should show the "listen for instructions" screen after
          successfully placing the OTA call -->
     <integer name="OtaShowListeningScreen">1</integer>
-<<<<<<< HEAD:overlay-radio/packages/apps/Phone/res/values/config.xml
-=======
 
     <!-- Show enabled lte option for lte device -->
     <bool name="config_enabled_lte" translatable="false">true</bool>
->>>>>>> 02a0ee2... Update telephony overlay:overlay-radio/packages/services/Telephony/res/values/config.xml
 </resources>
