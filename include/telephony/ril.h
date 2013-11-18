@@ -4503,7 +4503,7 @@ typedef struct {
     int authtype;
     char *username;
     char *password;
-+} RIL_InitialAttachApn;
+} RIL_InitialAttachApn;
 
 
 #ifdef RIL_SHLIB
