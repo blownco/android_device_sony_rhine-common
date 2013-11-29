@@ -73,6 +73,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.gralloc.cp.level3=1
 
+# Extra lib for 4.4
+PRODUCT_PACKAGES += \
+    libqdMetaData
+	
 # NFC Support
 PRODUCT_PACKAGES += \
     libnfc \
