@@ -32,6 +32,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
@@ -65,6 +66,7 @@ PRODUCT_COPY_FILES += \
 # QCOM Display
 PRODUCT_PACKAGES += \
     hwcomposer.msm8974 \
+    memtrack.msm8974 \
     gralloc.msm8974 \
     copybit.msm8974
 
@@ -105,7 +107,15 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     libaudio-resampler \
     tinymix
+	
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.msm8974
 
+#Camera
+COMMON_GLOBAL_CFLAGS += -DQCOM_BSP_CAMERA_ABI_HACK
+USE_DEVICE_SPECIFIC_CAMERA := true
+	
 # BT
 PRODUCT_PACKAGES += \
     hci_qcomm_init
@@ -120,11 +130,7 @@ PRODUCT_PACKAGES += \
 
 # FM Radio
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
-    frameworks/native/data/etc/com.stericsson.hardware.fm.receiver.xml:system/etc/permissions/com.stericsson.hardware.fm.receiver.xml
-
-PRODUCT_PACKAGES += \
-    FmRadio
+    $(COMMON_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh
 
 # Key layouts
 PRODUCT_COPY_FILES += \
@@ -227,3 +233,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Include non-opensource parts
 $(call inherit-product, vendor/sony/rhine-common/rhine-common-vendor.mk)
+
+#New MSM8x74 hw repo
+$(call inherit-product-if-exists, hardware/qcom/msm8x74/msm8x74.mk)

@@ -19,6 +19,7 @@
 TARGET_USES_QCOM_BSP := true
 COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 BOARD_EGL_CFG := device/sony/rhine-common/rootdir/system/lib/egl/egl.cfg
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 # Shader cache config options
 # Maximum size of the  GLES Shaders that can be cached for reuse.
@@ -50,8 +51,6 @@ TARGET_ARCH_VARIANT_CPU := cortex-a9
 TARGET_CPU_VARIANT := krait
 
 # Flags
-TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
 COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64
 
 # Krait optimizations
@@ -89,8 +88,7 @@ TARGET_PROVIDES_GPS_LOC_API := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_QCOM := true
-BLUETOOTH_HCI_USE_MCT := true
+BOARD_HAVE_BLUETOOTH_BCM := true
 
 # Time
 BOARD_USES_QC_TIME_SERVICES := true
@@ -111,7 +109,7 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Audio
-TARGET_QCOM_AUDIO_VARIANT := bfam
+TARGET_QCOM_AUDIO_VARIANT := caf
 BOARD_USES_ALSA_AUDIO := true
 BOARD_USES_SEPERATED_AUDIO_INPUT := true
 QCOM_AUDIO_FEATURE_DISABLED_FLUENCE := true
@@ -129,7 +127,7 @@ COMMON_GLOBAL_CFLAGS += -DDOLBY_DAP -DQCOM_DS1_DOLBY_DAP
 TARGET_QCOM_DISPLAY_VARIANT := mdss
 
 # Media
-TARGET_QCOM_MEDIA_VARIANT := v4l2
+TARGET_QCOM_MEDIA_VARIANT := caf
 
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
